@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  weight_kg: 9.99
+  height_cm: 1
+  neck_circumference_cm: 9.99
+  chest_circumference_cm: 9.99
+  shoulder_circumference_cm: 9.99
+  waist_circumference_cm: 9.99
+  hip_circumference_cm: 9.99
+  abdomen_circumference_cm: 9.99
+  relaxed_arm_circumference_cm: 9.99
+  flexed_arm_circumference_cm: 9.99
+  forearm_circumference_cm: 9.99
+  thigh_circumference_cm: 9.99
+  calf_circumference_cm: 9.99
+
+two:
+  user: two
+  weight_kg: 9.99
+  height_cm: 1
+  neck_circumference_cm: 9.99
+  chest_circumference_cm: 9.99
+  shoulder_circumference_cm: 9.99
+  waist_circumference_cm: 9.99
+  hip_circumference_cm: 9.99
+  abdomen_circumference_cm: 9.99
+  relaxed_arm_circumference_cm: 9.99
+  flexed_arm_circumference_cm: 9.99
+  forearm_circumference_cm: 9.99
+  thigh_circumference_cm: 9.99
+  calf_circumference_cm: 9.99
