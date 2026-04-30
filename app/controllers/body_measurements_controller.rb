@@ -1,5 +1,6 @@
 class BodyMeasurementsController < ApplicationController
   before_action :set_body_measurement, only: [:show, :update, :destroy]
+  before_action :set_body_measurements_by_user, only: [:show_by_user]
 
   # GET /body_measurements
   def index
@@ -11,6 +12,14 @@ class BodyMeasurementsController < ApplicationController
   # GET /body_measurements/1
   def show
     render json: @body_measurement
+  end
+
+  def show_by_user
+    if @body_measurements.any?
+      render json: @body_measurements
+    else
+      render json: { error: "Body measurements not found for user_id #{params[:user_id]}" }, status: :not_found
+    end
   end
 
   # POST /body_measurements
@@ -42,6 +51,10 @@ class BodyMeasurementsController < ApplicationController
 
     def set_body_measurement
       @body_measurement = BodyMeasurement.find(params[:id])
+    end
+
+    def set_body_measurements_by_user
+      @body_measurements = BodyMeasurement.where(user_id: params[:user_id])
     end
 
     def body_measurement_params
