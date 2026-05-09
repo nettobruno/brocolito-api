@@ -1,10 +1,10 @@
 class BodyMeasurementsController < ApplicationController
+  before_action :authenticate_request
   before_action :set_body_measurement, only: [:show, :update, :destroy]
-  before_action :set_body_measurements_by_user, only: [:show_by_user]
 
   # GET /body_measurements
   def index
-    @body_measurements = BodyMeasurement.all
+    @body_measurements = current_user.body_measurements
 
     render json: @body_measurements
   end
@@ -14,17 +14,9 @@ class BodyMeasurementsController < ApplicationController
     render json: @body_measurement
   end
 
-  def show_by_user
-    if @body_measurements.any?
-      render json: @body_measurements
-    else
-      render json: { error: "Body measurements not found for user_id #{params[:user_id]}" }, status: :not_found
-    end
-  end
-
   # POST /body_measurements
   def create
-    @body_measurement = BodyMeasurement.new(body_measurement_params)
+    @body_measurement = current_user.body_measurements.new(body_measurement_params)
 
     if @body_measurement.save
       render json: @body_measurement, status: :created, location: @body_measurement
@@ -45,21 +37,17 @@ class BodyMeasurementsController < ApplicationController
   # DELETE /body_measurements/1
   def destroy
     @body_measurement.destroy
+    render json: { message: "Body measurement deleted successfully" }
   end
 
   private
 
     def set_body_measurement
-      @body_measurement = BodyMeasurement.find(params[:id])
-    end
-
-    def set_body_measurements_by_user
-      @body_measurements = BodyMeasurement.where(user_id: params[:user_id])
+      @body_measurement = current_user.body_measurements.find(params[:id])
     end
 
     def body_measurement_params
       params.require(:body_measurement).permit(
-        :user_id,
         :weight_kg,
         :height_cm,
         :neck_circumference_cm,
