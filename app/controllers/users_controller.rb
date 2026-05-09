@@ -36,6 +36,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+    render json: { message: 'User deleted successfully' }
   end
 
   private
