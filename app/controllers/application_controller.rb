@@ -29,4 +29,10 @@ class ApplicationController < ActionController::API
   def authorize_admin!
     render json: { error: "Forbidden" }, status: :forbidden unless current_user&.admin?
   end
+
+  def authorize_user!
+    unless current_user&.admin? || current_user&.id == @user.id
+      render json: { error: "Forbidden" }, status: :forbidden
+    end
+  end
 end
