@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
+    if @user.update(update_user_params)
       render json: @user.as_json(except: [:password_digest])
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -64,8 +64,12 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-    def user_params
+    def create_user_params
       params.require(:user).permit(:name, :email, :password)
+    end
+
+    def update_user_params
+      params.require(:user).permit(:name, :email)
     end
 
     def password_params
