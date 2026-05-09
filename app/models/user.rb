@@ -3,6 +3,6 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  
+
   has_many :body_measurements, dependent: :destroy
 end

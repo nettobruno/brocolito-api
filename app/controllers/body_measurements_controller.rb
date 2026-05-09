@@ -1,6 +1,6 @@
 class BodyMeasurementsController < ApplicationController
   before_action :authenticate_request
-  before_action :set_body_measurement, only: [:show, :update, :destroy]
+  before_action :set_body_measurement, only: [ :show, :update, :destroy ]
 
   # GET /body_measurements
   def index

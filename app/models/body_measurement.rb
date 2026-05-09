@@ -12,7 +12,7 @@ class BodyMeasurement < ApplicationRecord
     thigh_circumference_cm
     calf_circumference_cm
   ].freeze
-  
+
   belongs_to :user
 
   validates :weight_kg, presence: true, numericality: { greater_than: 0 }
