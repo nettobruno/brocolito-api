@@ -40,6 +40,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_password
+    if current_user && current_user.authenticate(password_params[:current_password])
+      if current_user.update(password: password_params[:password])
+        render json: { message: "Password updated successfully" }
+      else
+        render json: current_user.errors, status: :unprocessable_entity
+      end
+    else
+      render json: { error: "Current password is incorrect" }, status: :unprocessable_entity
+    end
+  end
+
   # DELETE /users/1
   def destroy
     @user.destroy
@@ -54,5 +66,9 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password)
+    end
+
+    def password_params
+      params.require(:user).permit(:current_password, :password)
     end
 end
