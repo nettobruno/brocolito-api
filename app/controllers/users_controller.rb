@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_request, except: [:create]
-  before_action :authorize_admin!, only: [:index, :show]
+  before_action :authorize_admin!, only: [:index, :show, :update]
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authorize_user!, only: [:update, :destroy]
+  before_action :authorize_user!, only: [:destroy]
 
   # GET /users
   def index
@@ -37,6 +37,14 @@ class UsersController < ApplicationController
       render json: @user.as_json(except: [:password_digest, :admin])
     else
       render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update_me
+    if current_user.update(update_user_params)
+      render json: current_user.as_json(except: [:password_digest, :admin])
+    else
+      render json: current_user.errors, status: :unprocessable_entity
     end
   end
 
