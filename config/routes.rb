@@ -6,5 +6,7 @@ Rails.application.routes.draw do
     patch "me", to: "users#update_me", on: :collection
     patch "me/password", to: "users#update_password", on: :collection
   end
-  resources :body_measurements, only: [:index, :show, :create, :update, :destroy]
+  resources :body_measurements, only: [:index, :show, :create, :update, :destroy] do
+    get "compare", to: "body_measurements#compare", on: :collection
+  end
 end
