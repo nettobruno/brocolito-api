@@ -12,17 +12,17 @@ class UsersController < ApplicationController
   end
 
   def me 
-    render json: current_user.as_json(except: [:password_digest])
+    render json: current_user.as_json(except: [:password_digest, :admin])
   end
 
   # GET /users/1
   def show
-    render json: @user.as_json(except: [:password_digest])
+    render json: @user.as_json(except: [:password_digest, :admin])
   end
 
   # POST /users
   def create
-    @user = User.new(user_params)
+    @user = User.new(create_user_params)
 
     if @user.save
       render json: @user.as_json(except: [:password_digest]), status: :created, location: @user
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @user.update(update_user_params)
-      render json: @user.as_json(except: [:password_digest])
+      render json: @user.as_json(except: [:password_digest, :admin])
     else
       render json: @user.errors, status: :unprocessable_entity
     end
