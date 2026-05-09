@@ -10,6 +10,8 @@
 
 API REST em Ruby on Rails para gerenciamento de usuarios, autenticacao via JWT e acompanhamento de medidas corporais.
 
+<img width="2172" height="724" alt="ChatGPT Image 9 de mai  de 2026, 01_22_39" src="https://github.com/user-attachments/assets/c1a93dc1-1a9a-4ac4-ab10-00b5056a2496" />
+
 ---
 
 ## Stack Utilizada
