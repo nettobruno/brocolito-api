@@ -1,14 +1,18 @@
 class UsersController < ApplicationController
   before_action :authenticate_request, except: [:create]
-  before_action :authorize_admin!, only: :index
+  before_action :authorize_admin!, only: [:index, :show]
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authorize_user!, only: [:show, :update, :destroy]
+  before_action :authorize_user!, only: [:update, :destroy]
 
   # GET /users
   def index
     @users = User.all
 
     render json: @users
+  end
+
+  def me 
+    render json: current_user
   end
 
   # GET /users/1
