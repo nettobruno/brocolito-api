@@ -24,6 +24,16 @@ API REST em Ruby on Rails para autenticação, perfil de usuário e acompanhamen
 - rack-cors
 - RuboCop Rails Omakase
 
+### Ferramentas incluídas pelo template Rails para estudo
+
+- Docker: empacotamento da aplicação em containers.
+- Kamal: deploy de aplicações Rails usando Docker.
+- Solid Queue: processamento de jobs em background usando banco de dados.
+- Solid Cache: cache usando banco de dados.
+- Solid Cable: Action Cable usando banco de dados.
+- Brakeman: análise estática de segurança para aplicações Rails.
+- Bundler Audit: auditoria de vulnerabilidades conhecidas nas gems.
+
 ---
 
 ## Funcionalidades
@@ -108,7 +118,7 @@ Credenciais disponíveis:
 ```text
 admin@exemplo.com / 123123
 bruno@exemplo.com / 123123
-ana@exemplo.com / 123123
+julia@exemplo.com / 123123
 ```
 
 ---
