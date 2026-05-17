@@ -10,7 +10,8 @@ class AuthenticationController < ApplicationController
         user: {
           id: user.id,
           name: user.name,
-          email: user.email
+          email: user.email,
+          weight_goal: user.weight_goal
         }
       }
     else
