@@ -10,24 +10,22 @@ class BodyMeasurementsController < ApplicationController
   end
 
   def compare
-    first = current_user.body_measurements.order(created_at: :asc).first
-    last = current_user.body_measurements.order(created_at: :desc).first
+    measurements = current_user.body_measurements.order(created_at: :asc)
 
-
-    if first && last
+    if measurements.size >= 2
       comparison = {
-        weight_change_kg: measurement_change(first, last, :weight_kg),
-        neck_circumference_change_cm: measurement_change(first, last, :neck_circumference_cm),
-        chest_circumference_change_cm: measurement_change(first, last, :chest_circumference_cm),
-        shoulder_circumference_change_cm: measurement_change(first, last, :shoulder_circumference_cm),
-        waist_circumference_change_cm: measurement_change(first, last, :waist_circumference_cm),
-        hip_circumference_change_cm: measurement_change(first, last, :hip_circumference_cm),
-        abdomen_circumference_change_cm: measurement_change(first, last, :abdomen_circumference_cm),
-        relaxed_arm_circumference_change_cm: measurement_change(first, last, :relaxed_arm_circumference_cm),
-        flexed_arm_circumference_change_cm: measurement_change(first, last, :flexed_arm_circumference_cm),
-        forearm_circumference_change_cm: measurement_change(first, last, :forearm_circumference_cm),
-        thigh_circumference_change_cm: measurement_change(first, last, :thigh_circumference_cm),
-        calf_circumference_change_cm: measurement_change(first, last, :calf_circumference_cm)
+        weight_change_kg: measurement_change(measurements, :weight_kg),
+        neck_circumference_change_cm: measurement_change(measurements, :neck_circumference_cm),
+        chest_circumference_change_cm: measurement_change(measurements, :chest_circumference_cm),
+        shoulder_circumference_change_cm: measurement_change(measurements, :shoulder_circumference_cm),
+        waist_circumference_change_cm: measurement_change(measurements, :waist_circumference_cm),
+        hip_circumference_change_cm: measurement_change(measurements, :hip_circumference_cm),
+        abdomen_circumference_change_cm: measurement_change(measurements, :abdomen_circumference_cm),
+        relaxed_arm_circumference_change_cm: measurement_change(measurements, :relaxed_arm_circumference_cm),
+        flexed_arm_circumference_change_cm: measurement_change(measurements, :flexed_arm_circumference_cm),
+        forearm_circumference_change_cm: measurement_change(measurements, :forearm_circumference_cm),
+        thigh_circumference_change_cm: measurement_change(measurements, :thigh_circumference_cm),
+        calf_circumference_change_cm: measurement_change(measurements, :calf_circumference_cm)
       }
 
       render json: comparison
@@ -91,9 +89,10 @@ class BodyMeasurementsController < ApplicationController
       )
     end
 
-    def measurement_change(first, last, field)
-      return nil if first[field].nil? || last[field].nil?
+    def measurement_change(measurements, field)
+      comparable_measurements = measurements.select { |measurement| measurement[field].present? }
+      return nil if comparable_measurements.size < 2
 
-      last[field] - first[field]
+      comparable_measurements.last[field] - comparable_measurements.first[field]
     end
 end
