@@ -2,18 +2,21 @@ admin = User.find_or_initialize_by(email: "admin@exemplo.com")
 admin.name = "Admin"
 admin.password = "123123" if admin.new_record?
 admin.admin = true
+admin.weight_goal = "lose_weight"
 admin.save!
 
 bruno = User.find_or_initialize_by(email: "bruno@exemplo.com")
 bruno.name = "Bruno"
 bruno.password = "123123" if bruno.new_record?
 bruno.admin = false
+bruno.weight_goal = "gain_weight"
 bruno.save!
 
 julia = User.find_or_initialize_by(email: "julia@exemplo.com")
 julia.name = "Julia"
 julia.password = "123123" if julia.new_record?
 julia.admin = false
+julia.weight_goal = "lose_weight"
 julia.save!
 
 bruno.body_measurements.destroy_all
