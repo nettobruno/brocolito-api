@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_17_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_17_010000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -34,6 +34,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_17_000000) do
     t.index ["user_id"], name: "index_body_measurements_on_user_id"
   end
 
+  create_table "training_check_ins", force: :cascade do |t|
+    t.jsonb "activities", default: [], null: false
+    t.datetime "created_at", null: false
+    t.date "date", null: false
+    t.text "notes"
+    t.boolean "trained", default: false, null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "date"], name: "index_training_check_ins_on_user_id_and_date", unique: true
+    t.index ["user_id"], name: "index_training_check_ins_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
@@ -46,4 +58,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_17_000000) do
   end
 
   add_foreign_key "body_measurements", "users"
+  add_foreign_key "training_check_ins", "users"
 end

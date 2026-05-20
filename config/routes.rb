@@ -9,4 +9,10 @@ Rails.application.routes.draw do
   resources :body_measurements, only: [ :index, :show, :create, :update, :destroy ] do
     get "compare", to: "body_measurements#compare", on: :collection
   end
+  resources :training_check_ins, only: [ :index ] do
+    get "today", to: "training_check_ins#today", on: :collection
+    post "today", to: "training_check_ins#upsert_today", on: :collection
+    put "today", to: "training_check_ins#upsert_today", on: :collection
+    patch "today", to: "training_check_ins#upsert_today", on: :collection
+  end
 end

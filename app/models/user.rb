@@ -6,4 +6,5 @@ class User < ApplicationRecord
   validates :weight_goal, presence: true, inclusion: { in: %w[lose_weight gain_weight] }
 
   has_many :body_measurements, dependent: :destroy
+  has_many :training_check_ins, dependent: :destroy
 end
