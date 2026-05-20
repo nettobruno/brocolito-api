@@ -15,4 +15,11 @@ Rails.application.routes.draw do
     put "today", to: "training_check_ins#upsert_today", on: :collection
     patch "today", to: "training_check_ins#upsert_today", on: :collection
   end
+  resources :competition_groups, only: [ :index, :show, :create ] do
+    post "invitations", to: "competition_groups#invite", on: :member
+  end
+  resources :group_invitations, only: [ :index ] do
+    post "accept", to: "group_invitations#accept", on: :member
+    post "decline", to: "group_invitations#decline", on: :member
+  end
 end
